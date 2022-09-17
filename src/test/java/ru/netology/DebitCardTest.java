@@ -1,40 +1,33 @@
 package ru.netology;
 
-// import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class debitCardTest {
-    private WebDriver driver;
+class DebitCardTest {
+
+    WebDriver driver;
 
     @BeforeAll
     static void setupAll() {
-        System.setProperty("webdriver.chrome.driver", "driver/win/chromedriver.exe");
-       // WebDriverManager.chromedriver().setup();
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
     void setup() {
-     //  driver = new ChromeDriver();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--headless");
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
     }
 
     @AfterEach
     void teardown() {
         driver.quit();
-        driver = null;
     }
 
     @Test
-    public void test() {
+    void test() {
         driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[type=\"text\"]")).sendKeys("Петров Иван");
         driver.findElement(By.cssSelector("[type=\"tel\"]")).sendKeys("+79987654321");
