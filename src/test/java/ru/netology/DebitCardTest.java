@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 class DebitCardTest {
 
@@ -18,17 +19,22 @@ class DebitCardTest {
 
     @BeforeEach
     void setup() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999");
     }
 
     @AfterEach
     void teardown() {
         driver.quit();
+        driver = null;
     }
 
     @Test
     void test() {
-        driver.get("http://localhost:9999");
         driver.findElement(By.cssSelector("[type=\"text\"]")).sendKeys("Петров Иван");
         driver.findElement(By.cssSelector("[type=\"tel\"]")).sendKeys("+79987654321");
         driver.findElement(By.cssSelector(".checkbox__box")).click();
